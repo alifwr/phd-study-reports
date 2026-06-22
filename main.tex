@@ -1,0 +1,39 @@
+%==============================================================
+%  PhD Study Report — main document
+%  Compile:  pdflatex -> biber -> pdflatex -> pdflatex
+%  or simply:  latexmk -pdf main.tex
+%==============================================================
+\documentclass[12pt,a4paper,oneside]{report}
+
+% ----- shared preamble (packages, macros, styling) ----------
+\input{preamble/packages}
+\input{preamble/style}
+\input{preamble/macros}
+
+% ----- bibliography database --------------------------------
+\addbibresource{references/references.bib}
+
+\begin{document}
+
+% ----- front matter -----------------------------------------
+\input{frontmatter/titlepage}
+\input{frontmatter/abstract}
+
+\makefrontpages   % toc, lof, lot (defined in style.tex)
+
+% ----- body -------------------------------------------------
+\mainmatter
+
+\include{chapters/01-introduction/main}
+\include{chapters/02-literature-review/main}
+\include{chapters/03-methodology/main}
+\include{chapters/04-results/main}
+\include{chapters/05-conclusion/main}
+
+% ----- back matter ------------------------------------------
+\printbibliography[heading=bibintoc,title={References}]
+
+\appendix
+\include{appendices/A-extra/main}
+
+\end{document}

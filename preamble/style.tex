@@ -1,0 +1,76 @@
+%==============================================================
+%  Styling: spacing, headers, listings, hyperlinks, toc helper
+%==============================================================
+
+% --- line spacing ---
+\onehalfspacing
+
+% --- graphics search paths (per-chapter figures) ---
+\graphicspath{%
+  {chapters/01-introduction/figures/}%
+  {chapters/02-literature-review/figures/}%
+  {chapters/03-methodology/figures/}%
+  {chapters/04-results/figures/}%
+  {chapters/05-conclusion/figures/}%
+  {appendices/A-extra/figures/}%
+}
+
+% --- headers / footers ---
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\nouppercase{\leftmark}}
+\fancyhead[R]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\thepage}\renewcommand{\headrulewidth}{0pt}}
+
+% --- hyperref colours ---
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  citecolor=blue!60!black,
+  urlcolor=blue!60!black,
+  pdfborder={0 0 0},
+}
+
+% --- code listing default style ---
+\definecolor{codegray}{gray}{0.95}
+\definecolor{codecomment}{rgb}{0.0,0.5,0.0}
+\definecolor{codekeyword}{rgb}{0.0,0.0,0.6}
+\lstdefinestyle{default}{
+  backgroundcolor=\color{codegray},
+  commentstyle=\color{codecomment},
+  keywordstyle=\color{codekeyword}\bfseries,
+  basicstyle=\ttfamily\footnotesize,
+  breaklines=true,
+  captionpos=b,
+  frame=single,
+  numbers=left,
+  numberstyle=\tiny,
+  showstringspaces=false,
+  tabsize=2,
+}
+\lstset{style=default}
+
+% --- theorem environments ---
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}{Lemma}[chapter]
+\newtheorem{corollary}{Corollary}[chapter]
+
+% --- report has no \mainmatter/\frontmatter; emulate them ---
+% \def avoids "already defined" if a loaded package provides them.
+\def\frontmatter{\pagenumbering{roman}}
+\def\mainmatter{\clearpage\pagenumbering{arabic}}
+
+% --- front-matter pages (toc/lof/lot) helper ---
+% No @ in the name so it can be called from main.tex.
+\newcommand{\makefrontpages}{%
+  \frontmatter
+  \tableofcontents
+  \clearpage
+  \listoffigures
+  \clearpage
+  \listoftables
+  \clearpage
+}
