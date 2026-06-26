@@ -1,0 +1,29 @@
+﻿\section{The Tokenization Pipeline}
+\label{sec:tokenization-pipeline}
+
+% WHAT TO WRITE -------------------------------------------------------
+% The core concepts and definitions you now understand.
+% ---------------------------------------------------------------------
+
+Tokenization is the critical bridge between human-readable text and the numerical data (Token IDs) required by neural networks.
+
+The system utilizes a subword-based method known as Byte Pair Encoding. This allows the model to represent common words as single units and rare words as subword components (e.g., "Explain" may be split into "Ex" and "plain").
+
+The Qwen3Tokenizer features a vocabulary of approximately 151,000 tokens.
+\begin{itemize}
+  \item Large Vocabulary Pros: Allows more words to be represented as single tokens, resulting in shorter sequence lengths and lower overall processing time.
+  \item Large Vocabulary Cons: Increases model size and the per-token compute cost for calculating next-token probabilities.
+\end{itemize}
+
+
+
+% \begin{definition}[Key term]
+%   \label{def:key-term}
+%   State the definition here.
+% \end{definition}
+
+% \noindent and equations are typeset as:
+% \begin{equation}
+%   \label{eq:concept}
+%   f(x) = \E\!\left[\, y \mid x \,\right].
+% \end{equation}

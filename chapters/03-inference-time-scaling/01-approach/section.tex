@@ -1,0 +1,22 @@
+﻿\section{The Paradigm of Inference-Time Scaling}
+\label{sec:approach}
+
+% WHAT TO WRITE -------------------------------------------------------
+% Your overall plan / research design and the rationale behind it.
+% ---------------------------------------------------------------------
+
+In the development of reasoning models, there are two primary strategies to enhance performance: increasing training compute or increasing inference compute.
+
+\subsection{Core Definition and Mechanics}
+
+Inference-time scaling involves allowing a model to do "more work" per question after it has already been trained. Rather than changing the model's weights, this approach utilizes the same trained model to generate higher-quality responses by:
+
+\begin{itemize}
+    \item \textbf{Generating more tokens:} Allowing the model to "think" longer.
+    \item \textbf{Sampling multiple answers:} Generating a variety of potential solutions to find the most robust one.
+    \item \textbf{Successive refinement:} Iteratively reviewing and improving an initial response.
+\end{itemize}
+
+\subsection{The Scaling Trade-off}
+
+There is a direct correlation between the resources spent during inference and the resulting accuracy. As illustrated in the source data, spending more compute on the fly results in a sharper upward curve for benchmark accuracy. The primary disadvantage is that every additional token requires another forward pass through the model, increasing latency, compute cost, and API expenses.

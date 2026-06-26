@@ -1,0 +1,21 @@
+\section{Balancing Diversity with Coherence: Top-p Filtering}
+\label{sec:top-p-filtering}
+
+% WHAT TO WRITE -------------------------------------------------------
+% A status snapshot: what is done, in progress, and planned.
+% ---------------------------------------------------------------------
+
+High temperature settings can occasionally cause the model to sample "weird" or nonsensical tokens (e.g., sampling "mistress" when the query is "The capital of Germany is..."). To prevent this, Top-p Filtering (also known as Nucleus Sampling) is implemented.
+
+\subsection{The Four-Step Top-p Process}
+
+This filter ensures that the model only samples from the most plausible tokens:
+
+\begin{enumerate}
+    \item \textbf{Sort:} Arrange token probabilities in descending order.
+    \item \textbf{Cumulative Sum:} Calculate the running total of probabilities.
+    \item \textbf{Apply Threshold:} Select the smallest subset of tokens whose cumulative probability exceeds the threshold $p (e.g., p=0.9)$.
+    \item \textbf{Renormalize:} Rescale the remaining probabilities so they sum to 1.0, creating a new, valid distribution for sampling.
+\end{enumerate}
+
+By dropping low-probability tokens, the model maintains coherence while still allowing for the variability needed for advanced inference scaling strategies.

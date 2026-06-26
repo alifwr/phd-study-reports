@@ -1,0 +1,59 @@
+﻿\section{Primary Methodologies for Improved Reasoning}
+\label{sec:experiments-and-implementation}
+
+% WHAT TO WRITE -------------------------------------------------------
+% What you built / ran: setup, configuration, and key formulations.
+% ---------------------------------------------------------------------
+
+The following three methods represent the practical paradigms for scaling reasoning performance without retraining the model.
+
+\subsection{Method 1: Chain-of-Thought (CoT) Prompting}
+
+CoT prompting is a sequential technique that modifies the input prompt to encourage the LLM to generate a "reasoning chain" or a step-by-step explanation before arriving at a final answer.
+
+\begin{itemize}
+  \item \textbf{Implementation:} Simple instructions such as "Explain step by step" or "Let's think step by step" are appended to the prompt.
+  \item \textbf{Mechanism of Improvement:}
+  \begin{itemize}
+    \item \textbf{Self-Correction:} Walking through steps allows the model more opportunities to correct its own trajectory.
+    \item \textbf{Pattern Alignment:} Most high-quality math and logic datasets contain detailed solutions; CoT aligns the model with these learned patterns.
+  \end{itemize}
+  \item \textbf{Limitations:} CoT is not universally beneficial. On simple problems, it may lead to "overthinking," where the model generates erroneous explanations that mislead it toward a wrong conclusion.
+\end{itemize}
+
+\subsection{Method 2: Parallel Sampling and Self-Consistency}
+
+This method involves generating multiple independent responses for the same query and using a "voting" mechanism to select the most frequent answer.
+
+\begin{itemize}
+  \item \textbf{Implementations:} The model generates N diverse candidate answers. The system then selects the most common final result.
+  \item \textbf{Synergy:} This technique is often combined with CoT prompting to generate multiple reasoning chains, significantly increasing the probability of reaching the correct conclusion.
+  \item \textbf{Production Use:} This approach is a staple of advanced systems, including high-tier models like Claude 4.
+\end{itemize}
+
+\subsection{Method 3: Iterative Self-Refinement}
+
+A more advanced approach where the model reviews its own reasoning and answers across multiple steps, progressively improving the output.
+
+% Describe the experimental setup. Put image files in this chapter's
+% \texttt{figures/} directory, then uncomment:
+
+% % \begin{figure}[H]
+% %   \centering
+% %   \includegraphics[width=0.7\textwidth]{pipeline}
+% %   \caption{Processing pipeline.}
+% %   \label{fig:pipeline}
+% % \end{figure}
+
+% Key formulation:
+% \begin{equation}
+%   \label{eq:loss}
+%   \mathcal{L} = \frac{1}{N}\sum_{i=1}^{N}\norm{y_i - \hat{y}_i}^2 .
+% \end{equation}
+
+% A code listing (\texttt{listings} preconfigured in \texttt{style.tex}):
+
+% % \begin{lstlisting}[language=Python,caption={Training step.},label={lst:train}]
+% % def step(batch):
+% %     return loss
+% % \end{lstlisting}

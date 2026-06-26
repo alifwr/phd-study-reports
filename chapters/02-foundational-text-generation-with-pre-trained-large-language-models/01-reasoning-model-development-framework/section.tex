@@ -1,0 +1,29 @@
+﻿\section{The Reasoning Model Development Framework}
+\label{sec:reasoning-model-development-framework}
+
+% WHAT TO WRITE -------------------------------------------------------
+% The scope of your reading/study so far and how this chapter is
+% organised.
+% ---------------------------------------------------------------------
+
+The transition from a standard LLM to a reasoning-capable system follows a four-stage mental model. Current focus remains on Stage 1: LLM Basics, which involves the initialization of a conventional LLM and the implementation of basic text generation.
+
+\begin{table}[H]
+  \centering
+  \caption{Basic Text Generation Pipeline.}
+  \label{tab:basic-text-generation-pipeline}
+  \begin{tabularx}{\textwidth}{@{}>{\centering\arraybackslash\bfseries}p{0.18\textwidth} X X@{}}
+    \toprule
+    \normalfont\textbf{Stage} & \textbf{Focus Area} & \textbf{Objective} \\
+    \midrule
+    1 & LLM Basics & Load pre-trained weights and implement text generation functionality. \\
+    \addlinespace
+    2 & Measuring Performance & Evaluate response qualities using benchmarks and judgment-based metrics. \\
+    \addlinespace
+    3 & Reasoning Without Training & Explore inference techniques like self-refinement and advanced voting. \\
+    4 & Reasoning With Training & Improve capabilities via Reinforcement Learning and Distillation. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+Reasoning techniques are typically applied on top of a conventional (base) LLM. A "base" model is one that has undergone pre-training but has not yet been instruction- or preference-tuned. This approach allows developers to isolate which capabilities originate from the reasoning methods themselves versus the underlying model.

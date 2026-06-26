@@ -1,0 +1,44 @@
+\section{Technical Controls for Output Diversity}
+\label{sec:technical-controls-for-output-diversity}
+
+% WHAT TO WRITE -------------------------------------------------------
+% A status snapshot: what is done, in progress, and planned.
+% ---------------------------------------------------------------------
+
+To enable methods like Self-Consistency, the model must be able to generate diverse responses rather than the same response every time. This requires moving beyond "greedy decoding" (always picking the highest-probability token).
+
+\subsection{Logits and Probability Distribution}
+
+The generation process involves three stages:
+
+\begin{enumerate}
+    \item \textbf{Tokenization:} Converting text to token IDs.
+    \item \textbf{Logit Generation:} The model computes raw scores (logits) for every possible next token in the vocabulary (e.g., 151,936 unique tokens).
+    \item \textbf{Token Selection:} Selecting the index with the highest score.
+\end{enumerate}
+
+\subsection{Temperature Scaling}
+
+Temperature is a parameter that adjusts the "sharpness" of the logit distribution before it is converted into probabilities via the Softmax function.
+
+\begin{table}[H]
+  \centering
+  \caption{Temperature Settings and Their Effect on Output.}
+  \label{tab:temperature-settings}
+  \begin{tabularx}{\textwidth}{@{}>{\centering\arraybackslash\bfseries}p{0.18\textwidth} X X@{}}
+    \toprule
+    \normalfont\textbf{Temperature Setting} & \textbf{Effect on Distribution} & \textbf{Model Behavior} \\
+    \midrule
+    \textbf{0.0 (Greedy)} & Maximum sharpness & Always picks the single most likely token. \\
+    \addlinespace
+    \textbf{Low (< 10)} & Sharper distribution & Increases confidence; the gap between the top token and others grows. \\
+    \addlinespace
+    \textbf{1.0} & No change & Uses the model's original raw \\
+    \textbf{High (> 1.0)} & Flatter distribution & Increases diversity; loweer-ranked tokens become more likely to be selected. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection{Multinomial Sampling}
+
+Instead of always selecting the maximum logit, multinomial sampling draws a token at random based on the weighted probabilities. This randomness is essential for generating the diverse candidate answers required for Self-Consistency.

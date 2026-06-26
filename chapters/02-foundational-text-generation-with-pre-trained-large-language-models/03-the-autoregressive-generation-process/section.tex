@@ -1,0 +1,18 @@
+﻿\section{The Autoregressive Generation Process}
+\label{sec:autoregressive-generation-process}
+
+% WHAT TO WRITE -------------------------------------------------------
+% What the literature collectively shows, and the gaps / open questions
+% that motivate your own work.
+% ---------------------------------------------------------------------
+
+Text generation in LLMs is autoregressive, meaning the model generates one token at a time, and each generated token is appended to the input for the next iteration.
+
+\subsection{Mechanics of a Single Iteration}
+
+\begin{enumerate}
+    \item Forward Pass: The model processes the full input sequence (e.g., 6 tokens).
+    \item Matrix Output: The model returns a matrix (e.g., 6 x 151,936). Each row represents scores for every word in the vocabulary.
+    \item Last Position Extraction: Only the prediction at the final position is used, as it indicates the next unseen token.
+    \item Greedy Decoding (Argmax): The system selects the single highest-scoring next token by finding the index of the largest value in the final row of the output matrix.
+\end{enumerate}
