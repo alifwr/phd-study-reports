@@ -1,0 +1,29 @@
+\section{Experiments and Implementation}
+\label{sec:work-experiments}
+
+% WHAT TO WRITE -------------------------------------------------------
+% What you built / ran: setup, configuration, and key formulations.
+% ---------------------------------------------------------------------
+
+Describe the experimental setup. Put image files in this chapter's
+\texttt{figures/} directory, then uncomment:
+
+% \begin{figure}[H]
+%   \centering
+%   \includegraphics[width=0.7\textwidth]{pipeline}
+%   \caption{Processing pipeline.}
+%   \label{fig:pipeline}
+% \end{figure}
+
+Key formulation:
+\begin{equation}
+  \label{eq:loss}
+  \mathcal{L} = \frac{1}{N}\sum_{i=1}^{N}\norm{y_i - \hat{y}_i}^2 .
+\end{equation}
+
+A code listing (\texttt{listings} preconfigured in \texttt{style.tex}):
+
+% \begin{lstlisting}[language=Python,caption={Training step.},label={lst:train}]
+% def step(batch):
+%     return loss
+% \end{lstlisting}
