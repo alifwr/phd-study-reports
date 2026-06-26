@@ -1,0 +1,31 @@
+\section{Reasoning Model}
+\label{sec:reasoning-model}
+
+% WHAT TO WRITE -------------------------------------------------------
+% Introduce the research area, the broad context, and why it matters.
+% Set the scene before narrowing to the specific problem.
+% ---------------------------------------------------------------------
+
+In LLM development, reasoning is defined through a practical engineering lens rather than a philosophical one. Reasoning refers to a model generating intermediate steps before delivering a final response. These steps may be:
+
+\begin{itemize}
+    \item \textbf{Visible:} Presented to the user as a step-by-step explanation.
+    \item \textbf{Hidden:} Enclosed in special tags (e.g., <think>...</think>) and processed internally.
+\end{itemize}
+
+This process is frequently called "Chain-of-Thought." While it resembles human internal monologue, the underlying mechanism is autoregressive token prediction based on statistical patterns. The goal is to encourage the model to allocate computational resources (tokens) to problem-solving.
+
+Reasoning models excel at tasks where pattern recognition alone fails:
+
+\begin{itemize}
+    \item Logical puzzles and multi-step math problems.
+    \item Complex coding tasks.
+    \item AI agent applications requiring task decomposition, planning, and error recovery.
+\end{itemize}
+
+% Describe the research area and its importance here. Cite prior work with
+% \verb|\cite|, \eg \cite{example2020}.
+
+% Keep one active citation/\nocite so the bibliography is never empty
+% while drafting. Delete once you add real citations above.
+% \nocite{example2020}

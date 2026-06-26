@@ -1,0 +1,26 @@
+\section{Standard LLM Training Pipeline}
+\label{sec:intro-problem}
+
+% WHAT TO WRITE -------------------------------------------------------
+% The specific problem/question this report addresses, narrowed down
+% from the background above.
+% ---------------------------------------------------------------------
+
+To understand where reasoning models diverge, one must first understand the training pipeline in the Table~\ref{tab:training_pipeline}.
+
+\begin{table}[H]
+  \centering
+  \caption{LLM Training Pipeline.}
+  \label{tab:training_pipeline}
+  \begin{tabularx}{\textwidth}{@{}>{\bfseries}p{0.18\textwidth} X X@{}}
+    \toprule
+    \normalfont\textbf{Stage} & \textbf{Process} & \textbf{Objective} \\
+    \midrule
+    Pre-Training & Trained on trillions of tokens of unlabeled text using massive GPU clusters. & Learn ``raw language prediction'' (next-token prediction) and develop emergent properties. \\
+    \addlinespace
+    Post-training: Instruction Tuning & Supervised-finetuning (SFT) on labeled dataset. & Improve the model's ability to follow human instructions for specific tasks (summarization, translation). \\
+    \addlinespace
+    Post-training: Preference Tuning & Reinforcement Learning with Human Feedback (RLHF). & Align model outputs with human stylistic choices and subjective preferences. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
