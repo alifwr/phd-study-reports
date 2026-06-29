@@ -1,6 +1,8 @@
-# build output
-build/
+# build output (ignore everything except the final PDF)
+build/*
+!build/main.pdf
 *.pdf
+!build/main.pdf
 
 # LaTeX aux files
 *.aux
