@@ -1,0 +1,45 @@
+﻿\section{Comparison of RL Frameworks: RLHF vs. RLVR}
+\label{sec:discussion}
+
+% WHAT TO WRITE -------------------------------------------------------
+% Interpret the results and relate them back to what you learnt.
+% ---------------------------------------------------------------------
+
+\Cref{tab:rlhf-vs-rlvr} contrasts the two reinforcement-learning
+frameworks across their goals, reward signals, and scalability.
+
+\begin{table}[H]
+  \centering
+  \caption{Comparison of RLHF (preference tuning) and RLVR
+    (reasoning training).}
+  \label{tab:rlhf-vs-rlvr}
+  \begin{tabular}{p{0.18\textwidth} p{0.36\textwidth} p{0.36\textwidth}}
+    \toprule
+    \textbf{Feature} & \textbf{RLHF (Preference Tuning)}
+      & \textbf{RLVR (Reasoning Training)} \\
+    \midrule
+    Primary Goal & Aligning model outputs with human preferences.
+      & Improving correctness on complex tasks (math, code). \\
+    \addlinespace
+    Reward Signal & Human preference labels (subjective).
+      & Verifiable rewards (deterministic/objective). \\
+    \addlinespace
+    Reward Model & Requires training an additional LLM as a reward model.
+      & Uses a deterministic verifier (e.g., a math verifier). \\
+    \addlinespace
+    Complexity & High; requires human annotators and dual-model training.
+      & Lower; collapses into a single training loop. \\
+    \addlinespace
+    Scalability & Limited by human labeling effort and noise.
+      & Scales naturally to large datasets without manual labels. \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{RLVR Practical Advantages}
+
+\begin{itemize}
+    \item \textbf{Deterministic and Reproducible:} Avoids the inconsistency inherent in human annotations.
+    \item \textbf{Domain Specificity:} Particularly effective for domains with reliable verification signals, such as mathematics and programming.
+    \item \textbf{Resource Efficiency:} Removes the cost of maintaining a separate reward model often comparable in size to the base LLM.
+\end{itemize}

@@ -1,0 +1,47 @@
+﻿\section{The GRPO Algorithm}
+\label{sec:limitations}
+
+% WHAT TO WRITE -------------------------------------------------------
+% Caveats, threats to validity, and what is not yet covered.
+% ---------------------------------------------------------------------
+
+Group Relative Policy Optimization (GRPO) is the preferred policy optimization algorithm for implementing RLVR in modern reasoning models.
+
+\subsection{GRPO vs. PPO}
+
+Traditional PPO requires a separate "value model" to estimate a value function, which increases computational overhead. GRPO is more resource-friendly because it derives its learning signal from relative comparisons within a group of sampled responses.
+
+\subsection{Technical Implementation (The Chef Analogy)}
+
+The mechanics of GRPO are illustrated through the analogy of a chef running a delivery service:
+
+\begin{enumerate}
+    \item \textbf{Prompt:} A customer request (e.g., a request for lasagna).
+    \item \textbf{Rollouts:} The chef prepares several recipe variations for that single request.
+    \item \textbf{Completions:} The final dishes served to the customer.
+    \item \textbf{Reward:} The customer provides feedback after tasting the entire dish (whole-output evaluation).
+    \item \textbf{Advantages:} The chef compares the dishes relative to each other to identify which variations were superior.
+    \item \textbf{Logprobs:} The chef tracks how characteristic each dish was of their current ``cooking style.''
+    \item \textbf{Policy Gradient Loss:} The chef tweaks their style to reinforce successful choices.
+    \item \textbf{KL Loss Term:} The chef consults their original cookbook (reference model) to ensure the changes aren't too drastic (style-preservation).
+\end{enumerate}
+
+\subsection{Key Components of the GRPO Pipeline}
+
+\begin{enumerate}
+    \item \textbf{Sampling Rollouts:} The LLM generates multiple complete answers (rollouts) for a given prompt using temperature scaling and top-p sampling.
+    \item \textbf{Calculating Rewards:} A verifier (e.g., a math script) checks for final answer correctness. In reasoning tasks, binary rewards (1 for correct, 0 for incorrect) are common.
+    \item \textbf{Computing Advantages:} Advantages capture how a rollout performed relative to the group mean.
+    \begin{itemize}
+        \item \textbf{Formula:}
+        \begin{equation}
+            \label{eq:grpo-advantage}
+            A_i = \frac{r_i - \mu_r}{\sigma_r + \varepsilon}
+        \end{equation}
+        \item \textbf{Positive Advantage:} Increases the likelihood of the actions that produced that rollout.
+        \item \textbf{Negative Advantage:} Decreases the likelihood.
+    \end{itemize}
+    \item \textbf{Sequence Log-probabilities:} Measures how likely the model considers the generated tokens under its current parameters. Unlike standard LLM training, GRPO often uses sequence-level logprobs because the reward applies to the entire response.
+    \item \textbf{KL Regularization (Optional):} A penalty term that prevents the updated model from drifting too far from the original pre-trained model. While part of the original formulation, some developers omit it to simplify implementation.
+\end{enumerate}
+
