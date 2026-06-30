@@ -1,8 +1,17 @@
 ﻿%==============================================================
-%  Chapter 5 — Conclusion and Future Work
+%  Chapter 5 — Distilling Reasoning Models for Efficient Artificial Intelligence
 %==============================================================
-\chapter{Conclusion and Future Work}
+\chapter{Distilling Reasoning Models for Efficient Artificial Intelligence}
 \label{ch:conclusion-and-future-work}
+
+Model distillation is a training-time technique where a smaller "student" model is trained to replicate the outputs—specifically the reasoning traces and final answers—of a much larger "teacher" model. This approach addresses the high computational and financial barriers associated with massive reasoning models like the 671-billion-parameter DeepSeek-R1.
+
+Critical Takeaways:
+
+* Efficiency Gains: Distillation training is significantly faster and less resource-intensive than Reinforcement Learning from Verifiable Rewards (RLVR). In documented setups, distillation required only ~3 hours and 15 GB of RAM, compared to 12 hours and 70 GB for RLVR.
+* Superior Performance: Small models trained through distillation often outperform comparable models trained via reinforcement learning alone.
+* Practicality: "Hard distillation," which uses only the teacher’s text outputs rather than complex probability distributions (logits), is the most common and practical method for Large Language Model (LLM) development.
+* Data Quality: The effectiveness of the student model is fundamentally tied to the quality of the teacher’s reasoning traces. High-performing teachers (e.g., DeepSeek-R1 with ~91\% accuracy) provide the necessary supervision for the student to improve beyond its base capabilities.
 
 \input{chapters/05-conclusion-and-future-work/01-summary/section}
 \input{chapters/05-conclusion-and-future-work/02-future-directions/section}
