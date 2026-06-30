@@ -1,27 +1,25 @@
-﻿\section{Results}
+﻿\section{Core Training Paradigms: Scaling and Methods}
 \label{sec:results}
 
 % WHAT TO WRITE -------------------------------------------------------
 % Your findings so far, supported by tables and figures.
 % ---------------------------------------------------------------------
 
-\begin{table}[H]
-  \centering
-  \caption{Summary of preliminary results.}
-  \label{tab:preliminary-results}
-  \begin{tabular}{lcc}
-    \toprule
-    Method & Metric A & Metric B \\
-    \midrule
-    Baseline & 0.00 & 0.00 \\
-    Ours     & 0.00 & 0.00 \\
-    \bottomrule
-  \end{tabular}
-\end{table}
+\subsection{Inference-Time vs. Training-Time Scaling}
 
-% \begin{figure}[H]
-%   \centering
-%   \includegraphics[width=0.7\textwidth]{results-plot}
-%   \caption{Results plot.}
-%   \label{fig:results}
-% \end{figure}
+Reasoning performance and answer accuracy can be improved through two distinct compute investment strategies:
+
+\begin{itemize}
+  \item \textbf{Inference-Time Scaling:} Increases accuracy by spending more computation per generated answer (e.g., advanced text generation and voting).
+  \item \textbf{Training-Time Scaling:} Improves accuracy by investing additional computation during the training phase to modify model weights.
+\end{itemize}
+
+
+\subsection{The Role of Reinforcement Learning (RL)}
+
+RL is typically applied as a post-training stage following pre-training and instruction fine-tuning.
+
+\begin{itemize}
+  \item \textbf{Pre-training:} Primarily builds the model's knowledge base by training it to predict the next token.
+  \item \textbf{Reinforcement Learning:} Shapes how the model uses its knowledge, specifically focusing on its reasoning behavior. It allows for the optimization of whole outputs (e.g., answer correctness) rather than individual tokens.
+\end{itemize}
