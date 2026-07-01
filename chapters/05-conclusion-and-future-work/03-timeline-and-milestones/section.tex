@@ -1,21 +1,22 @@
-﻿\section{Timeline and Milestones}
+﻿\section{Preprocessing and Building Training Examples}
 \label{sec:timeline-and-milestones}
 
-% WHAT TO WRITE -------------------------------------------------------
-% Planned schedule for the remaining work.
-% ---------------------------------------------------------------------
+\subsection{Tokenization Pipeline}
 
-\begin{table}[H]
-  \centering
-  \caption{Planned timeline.}
-  \label{tab:timeline-and-milestones}
-  \begin{tabular}{ll}
-    \toprule
-    Period & Milestone \\
-    \midrule
-    Months 1--3 & --- \\
-    Months 4--6 & --- \\
-    Months 7--9 & --- \\
-    \bottomrule
-  \end{tabular}
-\end{table}
+The process follows a three-stage pipeline for each sample:
+
+\begin{enumerate}
+    \item \textbf{Prompt Rendering:} The math problem is formatted into a chat prompt (e.g., using \texttt{<|im\_start|>user} tags).
+    \item \textbf{Answer Formatting:} The teacher's reasoning trace and final answer are combined into a single target string.
+    \item \textbf{Concatenation:} The prompt and answer are joined into a single token sequence ending with an end-of-sequence (\texttt{<|im\_end|>}) token.
+\end{enumerate}
+
+\subsection{Filtering and Sequence Management}
+
+Reasoning traces can be excessively long, which increases computational requirements.
+
+\begin{itemize}
+    \item \textbf{Average Length:} The initial dataset averaged 2,946 tokens per response.
+    \item \textbf{Outliers:} Some traces reached up to 42,005 tokens.
+    \item \textbf{Filtering Strategy:} To keep costs reasonable and fit within hardware constraints, the dataset was filtered to a maximum length of 2,048 tokens. This removed 5,305 of the original 12,000 examples, resulting in a training set of 6,695 high-quality examples.
+\end{itemize}

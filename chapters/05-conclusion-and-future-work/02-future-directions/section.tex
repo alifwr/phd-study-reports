@@ -1,11 +1,28 @@
-\section{Future Directions}
+\section{Dataset Generation and Preparation}
 \label{sec:future-directions}
 
 % WHAT TO WRITE -------------------------------------------------------
 % Concrete next steps and research directions.
 % ---------------------------------------------------------------------
 
+The success of distillation depends on the creation of a high-quality synthetic dataset consisting of complex reasoning tasks.
+
+\subsection{Synthetic Data Generation}
+
+The documented process utilized 12,000 math problems from the Mathematics Aptitude Test of Heuristics (MATH) dataset.
+
 \begin{itemize}
-  \item Next step one.
-  \item Next step two.
+    \item \textbf{Source:} Problems were processed by DeepSeek-R1 to generate reasoning traces.
+    \item \textbf{Cost Efficiency:} Using an API (OpenRouter) to generate 12,000 solutions cost approximately \$50, which is significantly lower than the cost of training a massive model from scratch.
+    \item \textbf{Performance Baseline:} DeepSeek-R1 achieved 90.6\% accuracy on the training set and 91.2\% on the MATH-500 test set, providing a high-quality target for the student model.
+\end{itemize}
+
+\subsection{Formatting for Reasoning}
+
+To facilitate clear parsing, reasoning traces are typically enclosed in \texttt{<think>}\ldots\texttt{</think>} tags. This serves several purposes:
+
+\begin{itemize}
+    \item \textbf{User Interface Control:} Allows applications to hide verbose reasoning while showing the final answer.
+    \item \textbf{Consistent Formatting:} Helps the model learn a clear boundary between internal ``thought'' and the final output.
+    \item \textbf{Standardization:} Aligns the training with modern reasoning model conventions (e.g., Qwen3 and ChatGPT).
 \end{itemize}

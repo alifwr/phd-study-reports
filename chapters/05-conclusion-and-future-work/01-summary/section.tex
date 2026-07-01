@@ -1,8 +1,22 @@
-﻿\section{Summary}
+﻿\section{Foundational Concepts of Model Distillation}
 \label{sec:summary}
 
 % WHAT TO WRITE -------------------------------------------------------
 % Recap the problem and summarise what you have achieved so far.
 % ---------------------------------------------------------------------
 
-Restate the problem and summarise your progress.
+Model distillation serves as a method to scale down the capabilities of massive systems into formats that can be deployed on local hardware or less expensive infrastructure.
+
+\subsection{The Teacher-Student Dynamic}
+
+* Teacher Model: A large, high-performance LLM (e.g., DeepSeek-R1) that generates "supervision" data.
+* Student Model: A smaller LLM (e.g., Qwen3 0.6B) that is fine-tuned to reproduce the teacher's reasoning path and final conclusion.
+
+\subsection{Comparison of Distillation Types}
+
+The documents identify three primary approaches to distillation, summarized in the table below:
+
+Distillation Type	Training Target	Requirements	Practicality for LLMs
+Hard Distillation	Teacher-generated text tokens.	Access to text outputs only.	High: Standard for LLMs; compatible with proprietary APIs.
+Soft Distillation	Teacher's full probability distribution (logits).	Access to teacher logits and identical tokenizers.	Low: Computationally expensive; logits are often hidden by providers.
+Combined	Both text tokens and probability distributions.	Full model access (Teacher + Student).	Medium: Common in computer vision; rarer in LLM distillation.
