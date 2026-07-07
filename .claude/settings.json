@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(echo \"build exit=$?\")",
+      "Bash(git commit -q -m 'Update report author and title page metadata *)"
+    ]
+  }
+}
