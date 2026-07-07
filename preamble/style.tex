@@ -5,23 +5,52 @@
 % --- line spacing ---
 \onehalfspacing
 
+% --- reset chapter numbering at each \part (new topic) ---
+% starred form resets the counter but keeps plain arabic numbers (no "II.1")
+\counterwithin*{chapter}{part}
+
 % --- graphics search paths (per-chapter figures) ---
 \graphicspath{%
-  {chapters/01-understanding-reasoning/figures/}%
-  {chapters/02-foundational-text-generation-with-pre-trained-large-language-models/figures/}%
-  {chapters/03-inference-time-scaling/figures/}%
-  {chapters/04-training-reasoning-models-with-reinforcement-learning/figures/}%
-  {chapters/05-conclusion-and-future-work/figures/}%
+  {topics/reasoning-model/understanding-reasoning/figures/}%
+  {topics/reasoning-model/foundational-text-generation-with-pre-trained-large-language-models/figures/}%
+  {topics/reasoning-model/inference-time-scaling/figures/}%
+  {topics/reasoning-model/training-reasoning-models-with-reinforcement-learning/figures/}%
+  {topics/reasoning-model/conclusion-and-future-work/figures/}%
+  {topics/graph-rag-and-ontology/understanding-graph-rag-and-ontologies/figures/}%
+  {topics/graph-rag-and-ontology/knowledge-graph-construction/figures/}%
+  {topics/graph-rag-and-ontology/retrieval-and-reasoning-over-graphs/figures/}%
+  {topics/graph-rag-and-ontology/grounding-generation-with-graph-context/figures/}%
+  {topics/graph-rag-and-ontology/evaluation-and-future-directions/figures/}%
   {appendices/A-extra/figures/}%
 }
 
+% --- capture the current topic (\part) name for use in the header ---
+% report.cls keeps no part mark, so patch \part to remember its title.
+\newcommand{\topicname}{}
+\let\origpart\part
+\renewcommand{\part}[1]{\renewcommand{\topicname}{#1}\origpart{#1}}
+
 % --- headers / footers ---
+% Header: current topic (left) | current chapter (right)
+% Footer: report title (left) | page (center) | author (right)
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[L]{\nouppercase{\leftmark}}
-\fancyhead[R]{\thepage}
+\fancyhead[L]{\small\itshape\topicname}
+\fancyhead[R]{\small\itshape\nouppercase{\leftmark}}
+\fancyfoot[L]{\footnotesize\reporttitle}
+\fancyfoot[C]{\footnotesize\thepage}
+\fancyfoot[R]{\footnotesize\reportauthor}
 \renewcommand{\headrulewidth}{0.4pt}
-\fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\thepage}\renewcommand{\headrulewidth}{0pt}}
+\renewcommand{\footrulewidth}{0.4pt}
+% Chapter-opening / front-matter pages: keep the same footer, no header rule.
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \fancyfoot[L]{\footnotesize\reporttitle}%
+  \fancyfoot[C]{\footnotesize\thepage}%
+  \fancyfoot[R]{\footnotesize\reportauthor}%
+  \renewcommand{\headrulewidth}{0pt}%
+  \renewcommand{\footrulewidth}{0.4pt}%
+}
 
 % --- hyperref colours ---
 \hypersetup{

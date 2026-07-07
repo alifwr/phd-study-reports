@@ -1,0 +1,20 @@
+\section{Limitations}
+\label{sec:gr-limitations}
+
+The benefits of Graph RAG come at the cost of building and maintaining the graph
+itself. Constructing a knowledge graph from text requires a multi-stage extraction
+pipeline---entity recognition, relation extraction, coreference resolution, and
+entity linking---each of which introduces errors that propagate into the
+graph~\cite{ji2021kgsurvey, shen2015entitylinking}. Graph-based indexing further
+adds up-front cost, since methods that derive an entity graph and pre-generate
+community summaries invoke a language model many times over the corpus before any
+query is served~\cite{edge2024graphrag}.
+
+The graph must also be kept consistent and current: knowledge graphs are dynamic,
+and integrating new or changing data without corrupting existing structure is a
+recognized challenge~\cite{hogan2021kg}. Systems such as LightRAG explicitly
+introduce incremental update algorithms to address this, which is itself evidence
+that maintenance is a first-order concern rather than an afterthought~\cite{guo2024lightrag}.
+Finally, ontology design demands domain expertise, and an inadequate schema limits
+the consistency and inferential power the graph can provide~\cite{gruber1993ontology,
+hogan2021kg}.

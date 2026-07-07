@@ -1,0 +1,33 @@
+\section{Limitations of Vector-Based Retrieval}
+\label{sec:gr-vector-limitations}
+
+Although dense vector retrieval is effective for locating passages that are
+semantically similar to a query, it treats the corpus as a flat collection of
+independent chunks and discards the relational structure that connects
+them~\cite{peng2024graphrag}. This flat view is the root of several documented
+failure modes, and it is the primary motivation for introducing graph structure
+into retrieval~\cite{peng2024graphrag, edge2024graphrag}.
+
+\subsection{Multi-Hop and Relational Queries}
+
+Questions whose answers require chaining several facts together are difficult for
+naive RAG, because the individual passages that must be combined are often not
+individually similar to the query and may not co-occur in any single
+chunk~\cite{peng2024graphrag}. Multi-hop question answering benchmarks were
+created precisely to expose this weakness, requiring a system to find and reason
+over multiple supporting documents rather than retrieving a single relevant
+passage~\cite{yang2018hotpotqa}. Because vector similarity captures topical
+closeness but not the explicit relations between entities, it provides no
+reliable way to follow such reasoning chains~\cite{peng2024graphrag}.
+
+\subsection{Global vs. Local Questions}
+
+A second limitation concerns \emph{global} or thematic questions directed at an
+entire corpus, such as ``what are the main themes in this dataset?''.
+Such questions are inherently query-focused summarization tasks rather than
+retrieval tasks, and top-$k$ passage retrieval cannot answer them because no
+small set of chunks contains the global answer~\cite{edge2024graphrag}. Naive RAG
+consequently underperforms on comprehensiveness and diversity for this class of
+question, whereas a graph-structured index that pre-computes summaries of related
+entities was shown to improve substantially on both
+axes~\cite{edge2024graphrag}.

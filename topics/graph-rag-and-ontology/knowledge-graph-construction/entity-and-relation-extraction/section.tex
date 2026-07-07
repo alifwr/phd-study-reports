@@ -1,0 +1,45 @@
+\section{Entity and Relation Extraction}
+\label{sec:gr-extraction}
+
+Constructing a knowledge graph from unstructured text is fundamentally a
+knowledge-acquisition problem: entities and the relations between them must be
+identified and normalized before they can be stored as
+triples~\cite{ji2021kgsurvey}. This pipeline is typically decomposed into named
+entity recognition, relation extraction, and the linking steps that resolve
+mentions to canonical graph nodes~\cite{ji2021kgsurvey}. The recent trend is to
+drive these steps with large language models, exploiting their broad linguistic
+competence to extract structured knowledge with little task-specific
+supervision~\cite{pan2024unifying}.
+
+\subsection{Named Entity Recognition}
+
+Named entity recognition (NER) locates spans of text that mention entities and
+assigns them a type, and it is the foundation on which relation extraction and
+downstream graph population depend~\cite{li2022ner}. Contemporary approaches are
+dominated by deep neural architectures that learn contextual representations of
+tokens, superseding earlier feature-engineered models~\cite{li2022ner}. In the
+Graph RAG setting these extracted entities become the candidate nodes of the
+knowledge graph~\cite{edge2024graphrag}.
+
+\subsection{Relation Extraction with LLMs}
+
+Relation extraction determines how the recognized entities are connected,
+producing the predicate of each triple. In modern Graph RAG construction this is
+frequently performed by prompting a large language model to read source text and
+emit entity--relation--entity triples directly, an approach used to derive the
+entity knowledge graph in the GraphRAG pipeline~\cite{edge2024graphrag}. Using
+language models as extractors is attractive because they generalize across
+domains and relation types without dedicated training data, a capability
+highlighted in roadmaps for unifying language models and knowledge
+graphs~\cite{pan2024unifying}.
+
+\subsection{Coreference Resolution and Entity Linking}
+
+Raw extraction yields many surface mentions that refer to the same real-world
+entity, so two normalization steps are required to avoid a fragmented graph.
+Coreference resolution groups mentions---including pronouns---that denote the same
+entity within and across documents~\cite{lee2017coref}, while entity linking maps
+each mention to its canonical identifier in a reference knowledge
+base~\cite{shen2015entitylinking}. Performing these steps well is what merges
+duplicate nodes into a single coherent entity and gives the resulting graph its
+connectivity~\cite{shen2015entitylinking, ji2021kgsurvey}.

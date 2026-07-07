@@ -1,0 +1,20 @@
+\section{Multi-Hop Reasoning and Query Planning}
+\label{sec:gr-multihop}
+
+Many realistic questions require combining several facts that no single passage
+contains, a setting formalized by multi-hop question answering benchmarks that
+demand reasoning over multiple supporting documents~\cite{yang2018hotpotqa}. A
+knowledge graph is naturally suited to this task because a multi-hop question maps
+onto a path or subgraph, and following labelled edges makes each reasoning step
+explicit and traceable~\cite{peng2024graphrag}. This explicitness is a key
+advantage of graph-structured retrieval over flat vector search, whose similarity
+scores give no principled way to chain intermediate facts
+together~\cite{peng2024graphrag}.
+
+Because such questions must be decomposed before they can be traversed, Graph RAG
+systems increasingly plan retrieval: complex queries are broken into simpler
+sub-queries whose results are combined, and language models are used to drive this
+planning over the graph~\cite{peng2024graphrag}. Coupling the reasoning ability of
+language models with the structured, verifiable knowledge of a graph is exactly
+the complementarity emphasized in roadmaps for unifying the two
+paradigms~\cite{pan2024unifying}.

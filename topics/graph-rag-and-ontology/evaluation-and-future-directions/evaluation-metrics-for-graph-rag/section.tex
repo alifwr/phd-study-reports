@@ -1,0 +1,30 @@
+\section{Evaluation Metrics for Graph RAG}
+\label{sec:gr-metrics}
+
+Evaluating a Graph RAG system requires assessing two coupled components---the
+retriever and the generator---because an end-to-end answer can fail at either
+stage~\cite{es2024ragas}. Reference-free frameworks such as RAGAS were introduced
+precisely to evaluate RAG pipelines along these dimensions without relying on
+human-labelled ground truth, enabling faster iteration~\cite{es2024ragas}. For
+global, summarization-style questions where no single gold answer exists, GraphRAG
+instead measures qualities such as the comprehensiveness and diversity of the
+generated response, typically via head-to-head LLM-based
+comparison~\cite{edge2024graphrag}.
+
+\subsection{Retrieval Quality}
+
+Retrieval quality captures whether the system surfaced the evidence actually
+needed to answer the query; RAGAS operationalizes this with context-oriented
+metrics that assess the relevance of the retrieved material~\cite{es2024ragas}.
+This dimension is decisive because the final answer is upper-bounded by what was
+retrieved---missing evidence cannot be recovered downstream~\cite{gao2023ragsurvey}.
+
+\subsection{Answer Faithfulness and Groundedness}
+
+Faithfulness measures whether the generated answer is actually supported by the
+retrieved context rather than invented, and it is a core reference-free metric in
+RAGAS~\cite{es2024ragas}. It can be made fine-grained by decomposing the answer
+into atomic facts and verifying each against the source, as in atomic factual
+precision scoring~\cite{min2023factscore}. Since hallucination remains a pervasive
+risk in generation, faithfulness is the metric most directly aligned with the
+purpose of grounding~\cite{ji2023hallucination}.

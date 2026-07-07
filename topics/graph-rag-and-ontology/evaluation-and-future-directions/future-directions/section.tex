@@ -1,0 +1,32 @@
+\section{Future Directions}
+\label{sec:gr-future}
+
+Several directions follow from the limitations above and from open problems
+identified in the literature:
+
+\begin{itemize}
+    \item \textbf{Cheaper, more robust construction.} Reducing the cost and error
+    of turning text into graphs---by improving LLM-based extraction and
+    linking---remains central to making Graph RAG practical at
+    scale~\cite{pan2024unifying, ji2021kgsurvey}.
+
+    \item \textbf{Deeper LLM--KG integration.} Roadmaps for unifying language
+    models and knowledge graphs point toward systems where the two are combined
+    throughout inference rather than merely at retrieval time, so that generation
+    and structured reasoning reinforce each other~\cite{pan2024unifying}.
+
+    \item \textbf{Efficient and incremental indexing.} Making graph indexing
+    faster and updatable, as begun by lightweight and incremental
+    approaches, is needed for deployment in changing data
+    environments~\cite{guo2024lightrag}.
+
+    \item \textbf{Standardized evaluation.} Consolidating reference-free metrics
+    for both retrieval quality and answer faithfulness into shared benchmarks
+    would let Graph RAG variants be compared reliably~\cite{es2024ragas,
+    min2023factscore}.
+
+    \item \textbf{Stronger factual guarantees.} Given the persistence of
+    hallucination, using the ontology for verification and provenance is a
+    promising route to answers that are not only grounded but
+    checkable~\cite{ji2023hallucination, pan2024unifying}.
+\end{itemize}

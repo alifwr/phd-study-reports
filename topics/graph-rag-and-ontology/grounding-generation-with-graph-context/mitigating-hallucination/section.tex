@@ -1,0 +1,21 @@
+\section{Mitigating Hallucination through Structured Grounding}
+\label{sec:gr-hallucination}
+
+Hallucination---the generation of content that is fluent but unfaithful to any
+source---is a well-documented and pervasive failure mode of neural language
+generation~\cite{ji2023hallucination}. Retrieval augmentation reduces it by
+conditioning generation on retrieved evidence rather than parametric memory
+alone~\cite{lewis2020rag, gao2023ragsurvey}, and Graph RAG sharpens this effect by
+grounding the answer in explicit entities and relations whose provenance can be
+traced back through the graph~\cite{peng2024graphrag}. Because a knowledge graph
+supplies structured, verifiable facts, unifying it with a language model directly
+targets the tendency of parametric models to fabricate
+knowledge~\cite{pan2024unifying}.
+
+Structured grounding also makes the residual problem measurable. Fine-grained
+factuality metrics decompose a generated answer into atomic facts and check each
+against a knowledge source~\cite{min2023factscore}, which aligns naturally with a
+graph whose triples provide exactly such atomic, checkable
+units~\cite{pan2024unifying}. Grounding therefore does more than lower the
+hallucination rate; it provides the reference needed to detect and quantify what
+remains~\cite{ji2023hallucination, min2023factscore}.

@@ -1,0 +1,74 @@
+\section{Retrieval-Augmented Generation Fundamentals}
+\label{sec:gr-rag-fundamentals}
+
+Retrieval-Augmented Generation (RAG) augments a large language model with a
+non-parametric memory, so that generated text is conditioned not only on the
+parameters learned during pre-training but also on documents retrieved from an
+external corpus at inference time~\cite{lewis2020rag}. The design was introduced
+to address two structural weaknesses of purely parametric models: their
+knowledge is frozen at training time and cannot be updated without re-training,
+and they offer no straightforward mechanism for attributing a statement to a
+source~\cite{lewis2020rag}. By retrieving supporting passages on demand, RAG was
+shown to generate more specific and factual language than a comparable
+parametric-only sequence-to-sequence baseline~\cite{lewis2020rag}, and it has
+since become a dominant paradigm for grounding language models on private or
+fast-changing knowledge~\cite{gao2023ragsurvey}.
+
+Beyond factual grounding, RAG mitigates hallucination, injects domain-specific
+knowledge that the base model never observed, and keeps answers current without
+the cost of continual fine-tuning~\cite{gao2023ragsurvey, peng2024graphrag}.
+These properties explain its rapid adoption across open-domain question
+answering, enterprise search, and knowledge-intensive
+assistants~\cite{gao2023ragsurvey}.
+
+\subsection{The Retrieve-then-Generate Pipeline}
+
+A standard RAG system operates in two stages: a retriever first selects a small
+set of passages from the corpus that are most relevant to the user query, and a
+generator then conditions on the query together with those passages to produce
+the answer~\cite{lewis2020rag}. The literature terms this ``retrieve-then-generate''
+arrangement \emph{naive} RAG, distinguishing it from later variants that add
+query rewriting, re-ranking, and iterative retrieval around the same core
+loop~\cite{gao2023ragsurvey}. The quality of the final answer is therefore
+bounded by the retriever: if the relevant evidence is never retrieved, the
+generator cannot recover it~\cite{gao2023ragsurvey}.
+
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}[
+    box/.style={draw, rounded corners, minimum height=0.9cm, minimum width=1.9cm,
+                 align=center, font=\small},
+    db/.style={draw, cylinder, shape border rotate=90, aspect=0.28,
+               minimum height=1.3cm, minimum width=1.7cm, align=center, font=\small},
+    arr/.style={-{Latex[length=2mm]}, thick},
+    node distance=1.4cm and 1.5cm]
+    \node[box] (q)   {Query};
+    \node[box, right=of q]   (ret) {Retriever};
+    \node[db,  above=of ret] (corpus) {Corpus};
+    \node[box, right=of ret] (gen) {Generator\\(LLM)};
+    \node[box, right=of gen] (ans) {Answer};
+    \draw[arr] (q) -- (ret);
+    \draw[arr] (corpus) -- (ret) node[midway, right, font=\scriptsize] {passages};
+    \draw[arr] (ret) -- (gen) node[midway, above, font=\scriptsize] {top-$k$};
+    \draw[arr] (gen) -- (ans);
+    \draw[arr] (q.south) to[bend right=25] (gen.south);
+  \end{tikzpicture}
+  \caption[The retrieve-then-generate RAG pipeline]{The retrieve-then-generate pipeline of naive RAG: a retriever selects
+    the top-$k$ passages from the corpus, and the generator conditions on both the
+    query and those passages to produce the answer~\cite{lewis2020rag}.}
+  \label{fig:gr-rag-pipeline}
+\end{figure}
+
+\subsection{Embeddings and Vector Similarity Search}
+
+Most modern retrievers are \emph{dense}: passages and queries are each mapped to
+a fixed-length vector by a neural encoder, and relevance is estimated by
+similarity in that embedding space rather than by lexical
+overlap~\cite{karpukhin2020dpr}. Dense Passage Retrieval demonstrated that
+dual-encoder embeddings trained on question--passage pairs substantially
+outperform sparse lexical baselines on open-domain question
+answering~\cite{karpukhin2020dpr}, and sentence-level encoders such as
+Sentence-BERT made it practical to embed and compare large collections
+efficiently~\cite{reimers2019sbert}. At query time the system performs an
+approximate nearest-neighbour search over the pre-computed passage vectors to
+obtain the top-$k$ candidates~\cite{karpukhin2020dpr}.

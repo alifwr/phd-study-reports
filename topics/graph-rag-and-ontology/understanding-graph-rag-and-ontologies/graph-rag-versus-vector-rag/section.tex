@@ -1,0 +1,60 @@
+\section{Graph RAG versus Vector RAG}
+\label{sec:gr-graphrag-vs-vectorrag}
+
+Graph RAG is the family of RAG methods in which the external knowledge is
+organized as a graph and retrieval exploits that structure, rather than treating
+the corpus as a flat set of independent chunks~\cite{peng2024graphrag}. By
+retrieving connected entities and the relations between them, Graph RAG captures
+relational knowledge and supports more precise, context-aware
+responses~\cite{peng2024graphrag}. The two paradigms are therefore complementary:
+vector RAG excels at locating locally relevant passages, whereas Graph RAG adds
+the relational and global structure that vector similarity
+discards~\cite{peng2024graphrag, edge2024graphrag}, as contrasted in
+\Cref{fig:gr-vector-vs-graph}.
+
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}[
+    chunk/.style={draw, rounded corners, minimum width=1.5cm, minimum height=0.5cm,
+                  fill=black!5, font=\scriptsize},
+    ent/.style={draw, circle, minimum size=0.7cm, font=\scriptsize, inner sep=0pt},
+    rel/.style={-{Latex[length=1.5mm]}, semithick},
+    title/.style={font=\small\bfseries}]
+    % --- left: vector RAG (flat chunks) ---
+    \begin{scope}
+      \node[title] (t1) at (0,2.1) {Vector RAG};
+      \foreach \i in {0,1,2} \foreach \j in {0,1}
+        \node[chunk] at (\j*1.7, -\i*0.75) {};
+      \node[font=\scriptsize, text width=3.2cm, align=center] at (0.85,-2.6)
+        {independent chunks ranked by similarity};
+    \end{scope}
+    % --- right: graph RAG (connected entities) ---
+    \begin{scope}[xshift=6.2cm]
+      \node[title] (t2) at (0.6,2.1) {Graph RAG};
+      \node[ent] (a) at (0,1)     {A};
+      \node[ent] (b) at (1.4,1.4) {B};
+      \node[ent] (c) at (1.8,0)   {C};
+      \node[ent] (d) at (0.4,-0.6){D};
+      \node[ent] (e) at (2.6,0.9) {E};
+      \draw[rel] (a)--(b); \draw[rel] (b)--(c); \draw[rel] (a)--(d);
+      \draw[rel] (c)--(d); \draw[rel] (b)--(e); \draw[rel] (c)--(e);
+      \node[font=\scriptsize, text width=3.2cm, align=center] at (1.1,-2.6)
+        {connected entities and relations};
+    \end{scope}
+  \end{tikzpicture}
+  \caption[Vector RAG versus Graph RAG]{Vector RAG treats the corpus as independent chunks ranked by
+    similarity, whereas Graph RAG retrieves connected entities and the relations
+    between them, preserving relational structure~\cite{peng2024graphrag}.}
+  \label{fig:gr-vector-vs-graph}
+\end{figure}
+
+The practical benefits have been demonstrated from both ends of the design space.
+At the ``global'' end, building an entity knowledge graph and pre-computing
+community summaries lets the system answer corpus-wide sensemaking questions that
+naive RAG cannot, improving the comprehensiveness and diversity of
+answers~\cite{edge2024graphrag}. At the efficiency end, incorporating graph
+structure into indexing and using a dual-level retrieval scheme has been shown to
+improve both accuracy and response time relative to conventional
+RAG~\cite{guo2024lightrag}. More broadly, unifying language models with knowledge
+graphs is argued to combine the fluent generation of the former with the
+explicit, verifiable factual knowledge of the latter~\cite{pan2024unifying}.

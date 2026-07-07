@@ -1,0 +1,67 @@
+\section{Knowledge Graphs and Ontologies}
+\label{sec:gr-kg-ontologies}
+
+A knowledge graph represents knowledge as a graph whose nodes are entities of
+interest and whose edges denote relationships between them, providing an explicit
+and machine-readable model of a domain~\cite{hogan2021kg}. Unlike free text,
+this structure makes relations first-class objects that can be queried,
+validated, and reasoned over~\cite{hogan2021kg, ji2021kgsurvey}. Knowledge graphs
+have been adopted at scale by both industry and academia precisely because they
+can integrate diverse, dynamic, large-scale collections of
+data~\cite{hogan2021kg}.
+
+\subsection{Entities, Relations, and Triples}
+
+The atomic unit of a knowledge graph is the \emph{triple}: a subject entity, a
+predicate (relation), and an object, written as (subject, predicate, object),
+which asserts a single labelled edge between two nodes~\cite{hogan2021kg}. A
+collection of such triples forms a directed, edge-labelled graph, and this simple
+model underlies the surveyed families of graph data
+models~\cite{hogan2021kg, angles2008graphdb}. Representing knowledge as triples
+is what allows a graph to be traversed to answer relational and multi-hop
+questions that flat text cannot support directly~\cite{ji2021kgsurvey}.
+\Cref{fig:gr-kg-triples} shows a small example graph assembled from such triples.
+
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}[
+    ent/.style={draw, ellipse, minimum width=2.4cm, minimum height=1cm,
+                align=center, font=\small},
+    rel/.style={-{Latex[length=2mm]}, thick, font=\scriptsize}]
+    \node[ent] (r1) {DeepSeek-R1};
+    \node[ent, right=3.4cm of r1] (rm) {Reasoning\\Model};
+    \node[ent, below=2.2cm of r1] (math) {MATH\\Dataset};
+    \node[ent, below=2.2cm of rm] (student) {Student\\Model};
+    \draw[rel] (r1) -- (rm)      node[midway, above] {\texttt{isA}};
+    \draw[rel] (r1) -- (math)    node[midway, left]  {\texttt{trainedOn}};
+    \draw[rel] (r1) -- (student) node[midway, above, sloped] {\texttt{teaches}};
+    \draw[rel] (student) -- (rm) node[midway, right] {\texttt{isA}};
+  \end{tikzpicture}
+  \caption[An example knowledge graph of triples]{A knowledge graph is a set of (subject, predicate, object) triples,
+    each asserting one labelled edge between two entities~\cite{hogan2021kg}.}
+  \label{fig:gr-kg-triples}
+\end{figure}
+
+\subsection{Ontology Components: Classes, Properties, and Individuals}
+
+Whereas a knowledge graph records instance-level facts, an \emph{ontology}
+specifies the schema those facts must obey. Formally, an ontology is an explicit
+specification of a conceptualization---a description of the concepts and
+relationships that can exist in a domain~\cite{gruber1993ontology}. Its core
+building blocks are classes (types of entity), properties (the relations and
+attributes that may hold), and individuals (the concrete instances), together
+with axioms that constrain how they may be combined~\cite{hogan2021kg}. By fixing
+this vocabulary, an ontology gives the graph a shared, consistent meaning and
+enables logical inference over it~\cite{gruber1993ontology, hogan2021kg}.
+
+\subsection{Standards: RDF, RDFS, and OWL}
+
+These ideas are standardized by the World Wide Web Consortium as part of the
+Semantic Web vision, in which data is published with well-defined meaning so that
+machines can process it~\cite{bernerslee2001semantic}. The Resource Description
+Framework (RDF) provides the triple-based data model and abstract syntax for
+representing graph data on the Web~\cite{w3c2014rdf}, while the Web Ontology
+Language (OWL) supplies the expressive constructs---class hierarchies, property
+characteristics, and logical axioms---needed to define rich ontologies and to
+support automated reasoning~\cite{w3c2012owl}. Together they form the standard
+stack on which interoperable knowledge graphs are built~\cite{hogan2021kg}.

@@ -1,0 +1,71 @@
+\section{Community Detection and Summarization}
+\label{sec:gr-community}
+
+Global, corpus-wide questions cannot be answered by retrieving a few local
+neighbourhoods, so Graph RAG addresses them by partitioning the entity graph into
+communities and summarizing each one in advance~\cite{edge2024graphrag}. This
+strategy converts an intractable whole-corpus summarization task into a tractable
+hierarchy of partial summaries that can be composed at query
+time~\cite{edge2024graphrag}.
+
+\subsection{Hierarchical Community Clustering}
+
+The graph is divided into groups of closely related entities using community
+detection, and doing so hierarchically yields communities at multiple levels of
+granularity~\cite{edge2024graphrag}. The underlying algorithms come from network
+science: the Louvain method popularized fast modularity-based community detection
+in very large networks~\cite{blondel2008louvain}, and the Leiden algorithm refined
+it to guarantee well-connected communities, which is the variant commonly used in
+Graph RAG indexing~\cite{traag2019leiden}. The hierarchy lets the same index serve
+both broad and narrow global questions~\cite{edge2024graphrag}.
+
+\subsection{Map-Reduce over Community Summaries}
+
+At indexing time the system pre-generates a natural-language summary for every
+community~\cite{edge2024graphrag}. To answer a global query it then follows a
+map-reduce pattern: each community summary is used to generate a partial response
+(the map step), and those partial responses are aggregated into a single final
+answer (the reduce step)~\cite{edge2024graphrag}. For sensemaking questions over
+corpora in the million-token range, this approach produced substantial gains in
+the comprehensiveness and diversity of answers relative to a naive RAG
+baseline~\cite{edge2024graphrag}. \Cref{fig:gr-community-mapreduce} sketches the
+map-reduce flow over community summaries.
+
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}[
+    ent/.style={draw, circle, minimum size=0.45cm, inner sep=0pt, font=\tiny},
+    sum/.style={draw, rounded corners, minimum width=1.9cm, minimum height=0.7cm,
+                align=center, font=\scriptsize, fill=black!5},
+    box/.style={draw, rounded corners, minimum width=1.9cm, minimum height=0.7cm,
+                align=center, font=\scriptsize},
+    arr/.style={-{Latex[length=1.8mm]}, semithick},
+    comm/.style={draw, dashed, rounded corners, inner sep=5pt}]
+    % communities of entities
+    \node[ent] (a1) at (0,0.4)   {}; \node[ent] (a2) at (0.6,0.7) {};
+    \node[ent] (a3) at (0.3,-0.2){};
+    \draw (a1)--(a2) (a1)--(a3) (a2)--(a3);
+    \node[comm, fit=(a1)(a2)(a3), label=above:{\tiny C1}] (cA) {};
+    \node[ent] (b1) at (0,-1.8)  {}; \node[ent] (b2) at (0.6,-1.5){};
+    \node[ent] (b3) at (0.3,-2.3){};
+    \draw (b1)--(b2) (b1)--(b3) (b2)--(b3);
+    \node[comm, fit=(b1)(b2)(b3), label=below:{\tiny C2}] (cB) {};
+    % community summaries
+    \node[sum, right=1.4cm of cA] (sA) {Community\\summary 1};
+    \node[sum, right=1.4cm of cB] (sB) {Community\\summary 2};
+    % partial answers
+    \node[box, right=1.2cm of sA] (pA) {Partial\\answer 1};
+    \node[box, right=1.2cm of sB] (pB) {Partial\\answer 2};
+    % final
+    \node[box, fill=black!5, right=1.2cm of $(pA)!0.5!(pB)$] (fin) {Final\\answer};
+    \draw[arr] (cA) -- (sA); \draw[arr] (cB) -- (sB);
+    \draw[arr] (sA) -- (pA) node[midway,above,font=\tiny]{map};
+    \draw[arr] (sB) -- (pB) node[midway,above,font=\tiny]{map};
+    \draw[arr] (pA) -- (fin); \draw[arr] (pB) -- (fin);
+    \node[font=\tiny] at ($(pA)!0.5!(fin)+(0,0.35)$) {reduce};
+  \end{tikzpicture}
+  \caption[Map-reduce over community summaries]{Global Graph RAG detects entity communities, pre-generates a summary
+    per community, then maps each summary to a partial answer and reduces them
+    into a final response~\cite{edge2024graphrag}.}
+  \label{fig:gr-community-mapreduce}
+\end{figure}

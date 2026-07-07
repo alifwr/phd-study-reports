@@ -7,7 +7,7 @@ $out_dir = 'build';
 # \include writes per-chapter .aux into build/<subdir>/; create those
 # subdirs up front so pdflatex can open the aux files.
 use File::Path qw(make_path);
-foreach my $d (glob('chapters/*/ appendices/*/')) {
+foreach my $d (glob('topics/*/*/ appendices/*/')) {
     $d =~ s{/$}{};
     make_path("build/$d");
 }

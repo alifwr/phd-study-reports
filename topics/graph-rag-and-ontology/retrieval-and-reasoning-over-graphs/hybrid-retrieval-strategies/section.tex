@@ -1,0 +1,20 @@
+\section{Hybrid Retrieval Strategies}
+\label{sec:gr-hybrid}
+
+Graph and vector retrieval have complementary strengths, so effective systems
+combine them rather than choosing one: dense similarity is used to enter the graph
+and locate relevant entities, while graph traversal expands that entry point into
+a connected, relationally coherent context~\cite{peng2024graphrag}. LightRAG
+embodies this by integrating graph structures with vector representations in a
+single index, which it reports improves both retrieval accuracy and response time
+over conventional RAG~\cite{guo2024lightrag}.
+
+Hierarchical summarization can also be seen as a form of hybrid retrieval over
+levels of abstraction rather than over data models. RAPTOR, for example,
+recursively embeds, clusters, and summarizes text to build a tree, and retrieving
+from different levels of that tree integrates information at multiple granularities,
+yielding significant gains over flat retrieval~\cite{sarthi2024raptor}. Whether the
+structure is a knowledge graph or a summary tree, the common principle is that
+combining semantic similarity with explicit structure retrieves more complete and
+better-connected evidence than similarity alone~\cite{peng2024graphrag,
+sarthi2024raptor}.

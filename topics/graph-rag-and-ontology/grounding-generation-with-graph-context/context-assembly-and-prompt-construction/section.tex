@@ -1,0 +1,20 @@
+\section{Context Assembly and Prompt Construction}
+\label{sec:gr-context-assembly}
+
+Once a relevant subgraph has been retrieved, it must be serialized into a form the
+language model can consume, since the generator ultimately conditions on a textual
+prompt~\cite{lewis2020rag}. In Graph RAG this means linearizing entities,
+relations, and any attached community summaries into the context window, so that
+the structure retrieved from the graph is preserved as far as possible in the
+prompt~\cite{peng2024graphrag}. The design of this step matters because the answer
+is conditioned jointly on the query and the assembled evidence; poorly organized
+context degrades the generation even when the right facts were
+retrieved~\cite{gao2023ragsurvey}.
+
+Because context windows are finite, assembly also involves selection and ordering:
+the GraphRAG global pipeline, for instance, first generates partial answers from
+individual community summaries and only then combines them, rather than attempting
+to fit an entire corpus into one prompt~\cite{edge2024graphrag}. Dual-level
+retrieval schemes similarly assemble both specific entities and broader relational
+context so that the prompt reflects both local detail and global
+theme~\cite{guo2024lightrag}.

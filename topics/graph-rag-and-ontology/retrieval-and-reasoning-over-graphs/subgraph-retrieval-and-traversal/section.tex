@@ -1,0 +1,15 @@
+\section{Subgraph Retrieval and Traversal}
+\label{sec:gr-subgraph}
+
+In Graph RAG the retrieval target is not a list of independent passages but a
+relevant \emph{subgraph} of connected entities and relations, which is then
+handed to the generator as structured context~\cite{peng2024graphrag}. A common
+strategy is to first identify seed nodes---for instance the entities mentioned in
+the query, located by dense similarity---and then traverse outward along edges to
+gather the neighbourhood of facts that surround them~\cite{peng2024graphrag}.
+LightRAG operationalizes this with a dual-level retrieval scheme that combines
+low-level retrieval of specific entities with high-level retrieval of broader
+relational context, so that both fine-grained and thematic information are
+captured in a single pass~\cite{guo2024lightrag}. Retrieving a connected subgraph
+rather than isolated chunks is precisely what lets the model see how the retrieved
+facts relate to one another~\cite{peng2024graphrag}.

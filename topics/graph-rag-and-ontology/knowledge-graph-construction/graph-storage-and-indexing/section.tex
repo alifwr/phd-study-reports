@@ -1,0 +1,34 @@
+\section{Graph Storage and Indexing}
+\label{sec:gr-storage}
+
+Once triples are extracted and normalized they must be stored in a system that
+supports efficient traversal and querying, and the choice of data model shapes
+what retrieval can do~\cite{angles2008graphdb}. Graph database models have been
+surveyed extensively, and they differ in how they represent nodes, edges, and the
+attributes attached to them~\cite{angles2008graphdb}. For Graph RAG the
+requirement is twofold: the store must both hold the relational structure and
+expose it to the retriever at query time~\cite{peng2024graphrag}.
+
+\subsection{Triple Stores vs. Property Graphs}
+
+Two dominant paradigms exist. RDF triple stores represent data strictly as
+(subject, predicate, object) statements aligned with the W3C
+standards~\cite{w3c2014rdf}, which maximizes interoperability and standardized
+reasoning. Property graphs instead attach arbitrary key--value properties to both
+nodes and edges, a model popularized for its flexibility and developer
+ergonomics in connected-data applications~\cite{robinson2015graphdb}. Surveys of
+graph data models frame these as points on a spectrum of expressiveness and
+standardization rather than mutually exclusive
+choices~\cite{angles2008graphdb, hogan2021kg}.
+
+\subsection{Hybrid Vector-Graph Indexes}
+
+Modern Graph RAG systems index the graph alongside the vector embeddings used by
+dense retrieval, so that a query can exploit both semantic similarity and
+explicit structure~\cite{peng2024graphrag}. LightRAG, for example, incorporates
+graph structures into the text index and combines them with vector
+representations to retrieve related entities and their relationships efficiently,
+using an incremental update algorithm to keep the index current as new data
+arrives~\cite{guo2024lightrag}. Such hybrid indexes are what let a single system
+serve both the local, similarity-driven and the global, structure-driven retrieval
+patterns~\cite{peng2024graphrag, guo2024lightrag}.

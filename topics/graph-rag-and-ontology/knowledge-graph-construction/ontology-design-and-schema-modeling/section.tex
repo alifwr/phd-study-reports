@@ -1,0 +1,33 @@
+\section{Ontology Design and Schema Modeling}
+\label{sec:gr-ontology-design}
+
+An ontology supplies the schema that the extracted facts must conform to,
+specifying the conceptualization of the domain in terms of classes, properties,
+and constraints~\cite{gruber1993ontology}. Committing to such a shared vocabulary
+is what gives the knowledge graph consistent meaning and enables validation and
+inference over it~\cite{gruber1993ontology, hogan2021kg}. In a Graph RAG system
+the ontology therefore acts both as a target structure that guides extraction and
+as a contract that later retrieval and verification can rely on~\cite{hogan2021kg,
+pan2024unifying}.
+
+\subsection{Top-Down vs. Bottom-Up Schema Design}
+
+Ontology engineering can proceed top-down, where domain experts define the
+classes and relations in advance, or bottom-up, where the schema emerges from the
+entities and relations discovered in the data; in practice the two are combined,
+because a knowledge graph must balance a principled model with the messiness of
+real sources~\cite{hogan2021kg}. The choice affects how tightly extraction is
+constrained: a rich predefined schema improves consistency but can miss
+unanticipated relations, whereas an open, data-driven schema captures more but
+requires later consolidation~\cite{hogan2021kg, ji2021kgsurvey}.
+
+\subsection{Reusing Existing Ontologies}
+
+Because interoperability is a central goal of the Semantic Web, established
+vocabularies and ontologies should be reused rather than reinvented wherever
+possible, allowing data from different sources to be integrated under shared
+semantics~\cite{bernerslee2001semantic}. The RDF and OWL standards exist precisely
+to make such vocabularies portable and machine-interpretable across
+systems~\cite{w3c2014rdf, w3c2012owl}, and surveys of knowledge graphs document a
+large ecosystem of reusable ontologies built on this
+foundation~\cite{hogan2021kg}.

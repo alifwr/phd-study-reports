@@ -1,0 +1,19 @@
+\section{Ontology-Guided Verification}
+\label{sec:gr-verification}
+
+A distinctive advantage of grounding generation in a knowledge graph is that the
+graph and its ontology provide an explicit, machine-checkable reference against
+which generated statements can be validated~\cite{pan2024unifying}. Because a
+knowledge graph stores rich factual knowledge in a structured form, it can serve
+as external, verifiable knowledge for a language model, supplying both grounding
+and a basis for interpretability that black-box parametric models
+lack~\cite{pan2024unifying}. The ontology strengthens this further: its classes,
+property constraints, and logical axioms define which assertions are well-formed,
+so that reasoning can flag statements that violate the schema~\cite{w3c2012owl,
+hogan2021kg}.
+
+In effect, the ontology turns validation into a formal operation over the graph
+rather than a subjective judgement about text. This is the property that
+motivates unifying language models with knowledge graphs---pairing fluent
+generation with a substrate whose facts can be checked and whose inferences are
+explainable~\cite{pan2024unifying, hogan2021kg}.

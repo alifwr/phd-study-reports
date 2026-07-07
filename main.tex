@@ -24,11 +24,25 @@
 % ----- body -------------------------------------------------
 \mainmatter
 
-\include{chapters/01-understanding-reasoning/main}
-\include{chapters/02-foundational-text-generation-with-pre-trained-large-language-models/main}
-\include{chapters/03-inference-time-scaling/main}
-\include{chapters/04-training-reasoning-models-with-reinforcement-learning/main}
-\include{chapters/05-conclusion-and-future-work/main}
+% ===== Topic 1 — Reasoning Model =====
+\input{topics/reasoning-model/part}
+\include{topics/reasoning-model/understanding-reasoning/main}
+\include{topics/reasoning-model/foundational-text-generation-with-pre-trained-large-language-models/main}
+\include{topics/reasoning-model/inference-time-scaling/main}
+\include{topics/reasoning-model/training-reasoning-models-with-reinforcement-learning/main}
+\include{topics/reasoning-model/conclusion-and-future-work/main}
+
+% ===== Topic 2 — Graph RAG & Ontology =====
+\input{topics/graph-rag-and-ontology/part}
+\include{topics/graph-rag-and-ontology/understanding-graph-rag-and-ontologies/main}
+\include{topics/graph-rag-and-ontology/knowledge-graph-construction/main}
+\include{topics/graph-rag-and-ontology/retrieval-and-reasoning-over-graphs/main}
+\include{topics/graph-rag-and-ontology/grounding-generation-with-graph-context/main}
+\include{topics/graph-rag-and-ontology/evaluation-and-future-directions/main}
+
+% ===== Topic 3 — (add next topic here) =====
+% \input{topics/<next-topic>/part}
+% \include{topics/<next-topic>/<chapter>/main}
 
 % ----- back matter ------------------------------------------
 \printbibliography[heading=bibintoc,title={References}]
